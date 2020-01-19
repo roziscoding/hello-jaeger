@@ -1,4 +1,5 @@
 const mung = require('express-mung')
+const bodyParser = require('body-parser')
 const opentelemetry = require('@opentelemetry/core')
 const { NodeTracer } = require('@opentelemetry/node')
 const { initGlobalTracer } = require('@opentelemetry/core')
@@ -31,6 +32,8 @@ const SERVICE_2_URL = 'http://localhost:3001'
 const service2 = axios.create({ baseURL: SERVICE_2_URL })
 
 const app = express()
+
+app.use(bodyParser.json())
 
 app.use(mung.json((body, req, res) => {
   const tracer = opentelemetry.getTracer()

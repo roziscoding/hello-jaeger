@@ -1,4 +1,5 @@
 const mung = require('express-mung')
+const bodyParser = require('body-parser')
 const opentelemetry = require('@opentelemetry/core')
 const { NodeTracer } = require('@opentelemetry/node')
 const { initGlobalTracer } = require('@opentelemetry/core')
@@ -27,6 +28,8 @@ const axios = require('axios')
 const express = require('express')
 
 const app = express()
+
+app.use(bodyParser.json())
 
 app.use(mung.json((body, req, res) => {
   const tracer = opentelemetry.getTracer()
